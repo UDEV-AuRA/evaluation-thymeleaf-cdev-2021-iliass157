@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/header :: head"></div>
+
+<body>
+<div>
+
+    <div th:replace="fragments/header :: navb"></div>
+
+    <div class="container">
+        <h2 th:if="${not creation}">Détail de l'artiste [[${artist.name}]]</h2>
+        <h2 th:if="${creation}">Création d'un artiste</h2>
+
+        <div class="row">
+            <form id="saveForm" action="http://localhost:8080/artists/new" method="post">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <input type="hidden" th:value="${artist.id}" name="id" id="id" form="saveForm">
+                        <label for="name" class="form-control-label">Nom</label>
+                        <input type="text" id="name" name="name" class="form-control" th:value="${artist.name}" form="saveForm">
+
+                        <div th:if="${not creation}">
+                            <label class="form-control-label">Albums</label>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <div class="list-group">
+                                        <li class="list-group-item" th:each="tmp : ${artist.albums}">
+                                            <span th:text="${tmp.title}"></span>
+                                            <a th:href="|/artists/${artist.id}/albums/${tmp.id}/delete|" class="btn btn-sm btn-danger float-right"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--
+                            Je n'arrive pas à comprendre pourquoi ca ne marche pas pourtant j'ai précisé pour quel form chaque input ou button fait partie
+                            <div class="row">
+                                <form id="addAlbum" th:action="|/artists/${artist.id}/albums/add|" method="post">
+                                    <div class="col-lg-10">
+                                        <input type="text" name="title" placeholder="Ajouter un album..." class="form-control" form="addAlbum">
+
+                                        <button type="submit" class="btn-success list-group-item list-group-item-action" form="addAlbum"><span class="glyphicon glyphicon-plus"></span></button>
+                                    </div>
+                                </form>
+
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-lg-6">
+                <input class="btn btn-primary" type="submit" value="Enregistrer" form="saveForm">
+                <a th:href="|/artists/${artist.id}/delete|" class="btn btn-danger" th:if="${not creation}">Supprimer</a>
+            </div>
+        </div>
+        <br>
+        <br>
+        <form id="addAlbum" th:action="|/artists/${artist.id}/albums/add|" method="post">
+            <div class="col-lg-10">
+                <input type="text" name="title" placeholder="Ajouter un album..." class="form-control" form="addAlbum">
+
+                <button type="submit" class="btn-success list-group-item list-group-item-action" form="addAlbum"><span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
