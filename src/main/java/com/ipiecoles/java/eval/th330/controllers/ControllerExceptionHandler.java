@@ -47,11 +47,6 @@ public class ControllerExceptionHandler {
         return handleError(req, attributes, e.getMessage(), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ModelAndView handleBindException(DataIntegrityViolationException e, HttpServletRequest req, RedirectAttributes attributes){
-        return handleError(req, attributes, "Impossible de sauvegarder l'employé. Vérifier que le matricule n'excède pas 6 caractères.", HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ModelAndView handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, HttpServletRequest req, RedirectAttributes attributes){
         return handleError(req, attributes, "La valeur " + e.getValue() + " pour le paramètre " + e.getName() + " est incorrect !", HttpStatus.BAD_REQUEST);
