@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: head"></div>
+
+<body class="ember-application">
+
+<div th:replace="fragments/header :: navb"></div>
+
+<div th:fragment="error" class="jumbotron">
+    <h1 class="display-4">Erreur <span th:text="${status}"/> </h1>
+    <p class="lead" th:text="${error}"/>
+</div>
+</body>
+</html>
